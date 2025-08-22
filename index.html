@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>for you — a little sunset glow</title>
+  <meta name="theme-color" content="#ff7a6e"/>
+  <meta name="description" content="A tiny pocket of sunshine with gentle quotes."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --sun-1:#ff9966; --sun-2:#ff5e62; --sun-3:#fbc2eb; --sun-4:#a18cd1;
+      --ink:#ffffff;
+      --muted: rgba(255,255,255,.85);
+      --glass: rgba(255,255,255,.12);
+      --border: rgba(255,255,255,.28);
+      --shadow: 0 20px 60px rgba(0,0,0,.30);
+      --radius: 24px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      background: linear-gradient(140deg, var(--sun-1), var(--sun-2) 45%, var(--sun-3) 70%, var(--sun-4) 100%);
+      background-size: 200% 200%;
+      animation: sky 18s ease-in-out infinite;
+      display:flex; align-items:center; justify-content:center;
+      padding: min(6vw,48px);
+      overflow:hidden;
+    }
+    @keyframes sky{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+    /* Soft vignette for depth */
+    body::after{
+      content:"";
+      position:fixed; inset:0;
+      background: radial-gradient(1200px 600px at 50% 80%, transparent 0 70%, rgba(0,0,0,.18) 100%);
+      pointer-events:none;
+    }
+
+    /* Floating decorative blobs */
+    .blob{ position:absolute; filter: blur(40px); opacity:.45; will-change: transform; }
+    .blob.one{ width:34vmax; height:34vmax; background: #ffd1a8; top:-10vmax; left:-10vmax; animation: drift 22s linear infinite;}
+    .blob.two{ width:28vmax; height:28vmax; background: #ff87a0; bottom:-8vmax; right:-8vmax; animation: drift 26s linear infinite reverse;}
+    @keyframes drift{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(2vmax,-1vmax,0)}100%{transform:translate3d(0,0,0)}}
+
+    .wrap{ position:relative; z-index:2; width: min(92vw, 720px); }
+
+    .card{
+      position:relative;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(14px) saturate(120%);
+    }
+
+    /* Header with stylized sun + waves */
+    .hero{
+      position:relative;
+      padding: 60px 28px 40px;
+      text-align:center;
+      overflow:hidden;
+    }
+    .sun{
+      width:120px; height:120px; margin:0 auto 14px;
+      border-radius: 60% 60% 48% 48%;
+      background: radial-gradient(circle at 30% 30%, #fff7bf, #ffd166 55%, #ffaf45 100%);
+      box-shadow: 0 0 60px rgba(255,214,102,.75), inset 0 -10px 20px rgba(255,140,64,.35);
+      border:2px solid rgba(255,255,255,.6);
+      animation: glow 6s ease-in-out infinite;
+    }
+    @keyframes glow{ 0%,100%{ filter:brightness(1)} 50%{ filter:brightness(1.12)} }
+
+    .title{
+      margin: 10px 0 4px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(28px, 4.2vw, 40px);
+      letter-spacing:.3px;
+    }
+    .subtitle{
+      margin: 0;
+      font-weight: 300;
+      color: var(--muted);
+      font-size: clamp(14px, 2.6vw, 16px);
+    }
+
+    /* Decorative wave separator */
+    .wave{
+      display:block; width:100%; height:80px;
+    }
+    .content{
+      padding: 20px 22px 26px;
+      text-align:center;
+    }
+    .quote{
+      font-size: clamp(18px, 3.4vw, 22px);
+      line-height: 1.6;
+      margin: 10px auto 20px;
+      max-width: 56ch;
+    }
+    .hairline{
+      width: 90px; height: 2px; margin: 10px auto 16px;
+      background: rgba(255,255,255,.65);
+      border-radius: 4px;
+    }
+    .chips{
+      display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-bottom: 6px;
+    }
+    .chip{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.14);
+      font-size: 13px;
+      user-select:none;
+    }
+    .btns{ display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top: 14px; }
+    button{
+      appearance:none; border:none; cursor:pointer;
+      padding:12px 16px; border-radius: 999px; font-weight:600;
+      background: rgba(255,255,255,.95); color:#ff4f6d;
+      box-shadow: 0 10px 26px rgba(0,0,0,.22);
+      transition: transform .08s ease, box-shadow .2s ease, filter .2s ease;
+      font-size: 15px;
+    }
+    button:hover{ transform: translateY(-1px); box-shadow: 0 14px 30px rgba(0,0,0,.28) }
+    button:active{ transform: translateY(0) scale(.99) }
+    .ghost{
+      background: transparent; color:#fff; border:1px solid rgba(255,255,255,.8);
+      box-shadow: none;
+      backdrop-filter: blur(6px);
+    }
+    .ghost:hover{ filter: brightness(1.1); }
+
+    .small{
+      margin-top:18px; font-size:13px; color:var(--muted)
+    }
+
+    /* Floating stars */
+    .sparkle{
+      position:absolute; width:6px; height:6px; border-radius:999px; background:rgba(255,255,255,.9);
+      box-shadow:0 0 10px rgba(255,255,255,.9), 0 0 20px rgba(255,255,255,.6);
+      animation: floatUp 12s linear infinite;
+      filter: blur(.1px);
+    }
+    .sparkle:nth-child(odd){ width:4px; height:4px; animation-duration: 14s; opacity:.8}
+    .sparkle:nth-child(3n){ width:8px; height:8px; animation-duration: 18s; opacity:.92}
+    @keyframes floatUp{
+      0%{ transform: translateY(40vh) translateX(0); opacity:0 }
+      10%{ opacity:1 }
+      100%{ transform: translateY(-80vh) translateX(12px); opacity:0 }
+    }
+
+    /* Footer credit line */
+    .credit{
+      text-align:center; color: rgba(255,255,255,.85);
+      font-size:12px; margin-top:14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="blob one" aria-hidden="true"></div>
+  <div class="blob two" aria-hidden="true"></div>
+
+  <!-- ambient sparkles -->
+  <div id="sparkles" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <section class="card" role="region" aria-label="sunset notes">
+      <header class="hero">
+        <div class="sun" aria-hidden="true"></div>
+        <h1 class="title">hey, golden hour soul ✨</h1>
+        <p class="subtitle">a tiny pocket of sunshine made for @vii.waninara </p>
+      </header>
+
+      <!-- wave separator (SVG inline for crisp edges) -->
+      <svg class="wave" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="glow" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stop-color="rgba(255,255,255,.35)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,.05)"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,64 C160,112 320,144 480,144 C640,144 800,112 960,80 C1120,48 1280,16 1440,48 L1440,160 L0,160 Z" fill="url(#glow)"></path>
+      </svg>
+
+      <div class="content">
+        <div class="chips" aria-hidden="true">
+          <span class="chip">soft glow</span>
+          <span class="chip">warm vibes</span>
+          <span class="chip">golden locs energy</span>
+        </div>
+
+        <div class="hairline"></div>
+
+        <p id="quote" class="quote">like the sunset, you glow in golden hues — even when clouds drift by, your light is still magic. 🌅</p>
+
+        <div class="btns">
+          <button id="another">another quote??</button>
+          <button id="copy">copy this quote</button>
+          <button id="share" class="ghost" title="Share this page">share</button>
+        </div>
+
+        <p class="small">ps: the sky resets daily; so can you 💛</p>
+      </div>
+    </section>
+
+    <p class="credit">made with sunshine &amp; good intentions</p>
+  </main>
+
+  <script>
+    // Soft, uplifting, situation-agnostic lines
+    const QUOTES = [
+      "you are somebody’s warmest thought today — maybe mine.",
+      "golden hour has nothing on your kind of glow.",
+      "there’s quiet power in your softness; keep it.",
+      "the sky tries a new painting every evening. you’re that brave, too.",
+      "breathe in, head up — you carry sunshine well.",
+      "you are proof that gentle can still be strong.",
+      "may your coffee be kind and your day unfold like a good song.",
+      "you don’t have to chase the light when you already are it.",
+      "you’re a walking good-news story.",
+      "soft steps, bright spirit — you’ve got this.",
+      "you make ordinary moments feel like golden hour.",
+      "your smile is basically a sunrise in motion.",
+      "some days are for quiet wins — collect them.",
+      "the world is softer because you’re in it.",
+      "please remember: the sky resets daily; so can you.",
+      "your presence = instant upgrade to the vibe.",
+      "the stars are jealous of your highlight reel.",
+      "your kindness is the kind of pretty that never fades.",
+      "today’s plan: tiny joys, large laughter, zero pressure.",
+      "you’re doing better than your doubts are willing to admit."
+    ];
+
+    const quoteEl = document.getElementById('quote');
+    const anotherBtn = document.getElementById('another');
+    const copyBtn = document.getElementById('copy');
+    const shareBtn = document.getElementById('share');
+
+    function randomQuote(){
+      let next;
+      do { next = QUOTES[Math.floor(Math.random()*QUOTES.length)]; }
+      while(next === quoteEl.textContent);
+      quoteEl.textContent = next;
+      microPop();
+    }
+
+    function microPop(){
+      quoteEl.animate(
+        [{ transform: 'scale(1)', opacity: 1 }, { transform: 'scale(1.03)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }],
+        { duration: 180, easing: 'ease-out' }
+      );
+    }
+
+    anotherBtn.addEventListener('click', randomQuote);
+
+    copyBtn.addEventListener('click', async () => {
+      try{
+        await navigator.clipboard.writeText(quoteEl.textContent);
+        copyBtn.textContent = "copied ✨";
+        setTimeout(()=> copyBtn.textContent = "copy this quote", 1200);
+      }catch(e){
+        alert("Couldn't copy, sorry! You can select the text instead.");
+      }
+    });
+
+    // Web Share API (graceful fallback)
+    shareBtn.addEventListener('click', async () => {
+      const shareData = {
+        title: "a little sunset glow",
+        text: quoteEl.textContent + " — via this tiny sunset page",
+        url: location.href
+      };
+      if (navigator.share) {
+        try{ await navigator.share(shareData); } catch(e){ /* user canceled */ }
+      } else {
+        try{
+          await navigator.clipboard.writeText(shareData.text + " " + shareData.url);
+          shareBtn.textContent = "link copied ✨";
+          setTimeout(()=> shareBtn.textContent = "share", 1200);
+        }catch(e){
+          alert("You can copy the URL from the address bar to share 💛");
+        }
+      }
+    });
+
+    // Create floating sparkles
+    const sparkles = document.getElementById('sparkles');
+    for(let i=0;i<26;i++){
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random()*100 + 'vw';
+      s.style.animationDelay = (Math.random()*-12)+'s';
+      sparkles.appendChild(s);
+    }
+
+    // randomize on load different from default
+    window.addEventListener('load', randomQuote);
+  </script>
+</body>
+</html>
