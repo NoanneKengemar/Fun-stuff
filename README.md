@@ -1,2 +1,2 @@
-# Fun-stuff
-For tiktok my friends and me
+Created a little website visitation for my friend. 
+
